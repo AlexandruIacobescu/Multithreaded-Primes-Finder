@@ -1,7 +1,7 @@
 .PHONY: build clean
 
 build:
-	g++ src/main.cpp -o build/main -Wall -Wextra -pedantic
+	clang++ src/main.cpp -o build/main -Wall -Wextra -pedantic $(ARGS) -std=c++20
 
 run:
 	build/main.exe $(ARGS)

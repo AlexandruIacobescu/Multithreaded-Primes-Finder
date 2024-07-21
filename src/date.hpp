@@ -29,8 +29,8 @@ public:
         }
 
         // Additional checks for specific months
-        if (mm == 4 || mm == 6 || mm == 9 || mm == 11) {cd 
-            return dd <= 30;
+        if (mm == 4 || mm == 6 || mm == 9 || mm == 11) {
+            return dd <= 30;    
         } else if (mm == 2) {
             // Leap year check
             if ((yyyy % 4 == 0 && yyyy % 100 != 0) || (yyyy % 400 == 0)) {

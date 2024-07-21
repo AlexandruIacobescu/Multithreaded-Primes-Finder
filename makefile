@@ -12,7 +12,7 @@ all:
 	build/main.exe
 
 build:
-	g++ src/main.cpp -o build/main
+	g++ src/main.cpp -o build/main $(ARGS)
 
 run:
 	build/main.exe

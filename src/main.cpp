@@ -10,6 +10,8 @@
 
 std::vector<int> primes;
 std::mutex primes_mutex;
+std::vector<std::pair<std::thread::id, double>> thread_times;  // To store thread id and the time it took
+std::mutex times_mutex;
 
 bool is_prime(int n) {
     if (n <= 1) return false;
@@ -38,10 +40,15 @@ void find_primes(int start, int end) {
 
     auto end_time = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> elapsed = end_time - start_time;
-    std::cout << "Thread " << std::this_thread::get_id() << " finished in " << elapsed.count() << " ms\n";
+
+    {
+        std::lock_guard<std::mutex> lock(times_mutex);
+        thread_times.emplace_back(std::this_thread::get_id(), elapsed.count());
+    }
 }
 
-void parse_arguments(int argc, char* argv[], int &a, int &b, std::string &filename, int &threads, bool &output_to_file) {
+void parse_arguments(int argc, char* argv[], int &a, int &b, std::string &filename, int &threads, 
+                     bool &output_to_file) {
     a = std::stoi(argv[1]);
     b = std::stoi(argv[2]);
 
@@ -100,6 +107,11 @@ int main(int argc, char* argv[]) {
             std::cout << prime << " ";
         }
         std::cout << std::endl;
+    }
+
+    for (const auto& time_record : thread_times) {
+        std::cout << "Thread " << time_record.first << " finished in " << time_record.second 
+                  << " ms\n";
     }
 
     return 0;

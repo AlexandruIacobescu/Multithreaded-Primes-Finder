@@ -1,21 +1,10 @@
 .PHONY: build clean
 
-ifeq ($(OS), Windows_NT)
-CLEAR_CMD := cls
-else
-CLEAR_CMD := clear
-endif
-
-all:
-	$(CLEAR_CMD)
-	g++ src/main.cpp -o build/main -Wall -Wextra -pedantic-errors
-	build/main.exe
-
 build:
-	g++ src/main.cpp -o build/main $(ARGS)
+	g++ src/main.cpp -o build/main -Wall -Wextra -pedantic
 
 run:
-	build/main.exe
+	build/main.exe $(ARGS)
 
 clean:
 	del /f build\*

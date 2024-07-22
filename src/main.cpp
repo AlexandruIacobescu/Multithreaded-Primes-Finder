@@ -55,31 +55,63 @@ void find_primes(int start, int end) {
 
 void parse_arguments(int argc, char *argv[], int &a, int &b, std::string &filename, int &threads,
                      bool &output_to_file, bool &sort_ascending, bool &hush, int &columns) {
-    a = std::stoi(argv[1]);
-    b = std::stoi(argv[2]);
+    argparse::ArgumentParser program("prime_finder");
 
-    threads = 4;  // default value
-    output_to_file = false;
-    sort_ascending = true;  // default sort order
+    program.add_argument("a")
+        .help("Start of the range (must be a positive integer)")
+        .scan<'i', int>();
+    program.add_argument("b")
+        .help("End of the range (must be a positive integer greater than a)")
+        .scan<'i', int>();
 
-    for (int i = 3; i < argc; ++i) {
-        if (strcmp(argv[i], "-file") == 0) {
-            output_to_file = true;
-            filename = argv[++i];
-        } else if (strcmp(argv[i], "-threads") == 0) {
-            threads = std::stoi(argv[++i]);
-        } else if (strcmp(argv[i], "-sort") == 0) {
-            if (strcmp(argv[++i], "asc") == 0) {
-                sort_ascending = true;
-            } else if (strcmp(argv[i], "desc") == 0) {
-                sort_ascending = false;
+    program.add_argument("-file")
+        .help("Output primes to FILE instead of the console")
+        .default_value(std::string(""))
+        .implicit_value(std::string(""));
+
+    program.add_argument("-threads")
+        .help("Number of threads to use (default: 4)")
+        .default_value(4)
+        .scan<'i', int>();
+
+    program.add_argument("-sort")
+        .help("Sort order of the primes: 'asc' for ascending (default), 'desc' for descending")
+        .default_value(std::string("asc"))
+        .action([](const std::string &value) {
+            static const std::vector<std::string> choices = {"asc", "desc"};
+            if (std::find(choices.begin(), choices.end(), value) != choices.end()) {
+                return value;
             }
-        } else if (strcmp(argv[i], "--hush") == 0) {
-            hush = true;
-        } else if (strcmp(argv[i], "-columns") == 0) {
-            columns = std::stoi(argv[++i]);
-        }
+            return std::string("asc");
+        });
+
+    program.add_argument("--hush")
+        .help("Suppress the output of thread finishing status")
+        .default_value(false)
+        .implicit_value(true);
+
+    program.add_argument("-columns")
+        .help("Number of columns for output format (default: 1)")
+        .default_value(1)
+        .scan<'i', int>();
+
+    try {
+        program.parse_args(argc, argv);
+    } catch (const std::runtime_error &err) {
+        std::cerr << err.what() << std::endl;
+        std::cerr << program;
+        exit(1);
     }
+
+    a = program.get<int>("a");
+    b = program.get<int>("b");
+    filename = program.get<std::string>("-file");
+    threads = program.get<int>("-threads");
+    sort_ascending = program.get<std::string>("-sort") == "asc";
+    hush = program.get<bool>("--hush");
+    columns = program.get<int>("-columns");
+
+    output_to_file = !filename.empty();
 }
 
 void print_primes(const std::vector<int> &primes, int columns) {
@@ -98,7 +130,7 @@ void print_primes(const std::vector<int> &primes, int columns) {
 int main(int argc, char *argv[]) {
     if (argc < 3) {
         std::cerr
-            << "Usage: " << argv[0] << " a b [options]\n"
+            << "Usage: prime_finder a b [options]\n"
             << "Finds all prime numbers in the range [a, b].\n\n"
             << "Positional arguments:\n"
             << "  a               Start of the range (must be a positive integer)\n"

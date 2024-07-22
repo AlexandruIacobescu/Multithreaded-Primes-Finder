@@ -40,7 +40,7 @@ This command finds all prime numbers between 1 and 100, outputs them to `primes.
 
 1. Clone the repository:
 ```sh
-git clone https://github.com/p-ranav/argparse.git
+git clone https://github.com/AlexandruIacobescu/Multithreaded-Primes-Finder.git
 ```
 2. Include the `argparse.hpp` header in your project directory.
 3. Compile the application:

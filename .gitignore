@@ -1,5 +1,7 @@
 /.vscode/
 /.idea/
-/build/
+build/*
+!build/
 /bin/
 data/*
+!data/

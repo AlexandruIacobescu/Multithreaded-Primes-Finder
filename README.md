@@ -36,28 +36,48 @@ Optional arguments:
 
 - `-file FILE`: Output primes to FILE instead of the console
 - `-threads T`: Number of threads to use (default: 4)
-- `-sort ORDER`: Sort order of the primes: 'asc' for ascending (default), 'desc' for descending
+- `-sort ORDER`: Sort order of the primes: `asc` for ascending (default), `desc` for descending
 - `--hush`: Suppress the output of thread finishing status
 - `-columns NUMBER`: Number of columns for output format (default: 1)
 
-## Example
-
-```bash
-prime_finder 1 100 -file primes.txt -threads 8 -sort desc --hush -columns 5
-```
-
-This command finds all prime numbers between 1 and 100, outputs them to `primes.txt` in descending order using 8 threads, suppresses thread completion messages, and formats the output in 5 columns.
-
 ## Installation
+### Prerequisitres
+- `C++17`, or later
+- `GNU/gcc` or `LLVM/clang` compilers installed.
+- `GNU/make` (recommended)
 
 1. Clone the repository:
 ```sh
 git clone https://github.com/AlexandruIacobescu/Multithreaded-Primes-Finder.git
 ```
-2. Include the `argparse.hpp` header in your project directory.
+2. Change directory to the project root directory
+```sh
+cd Multithreaded-Primes-Finder
+```
 3. Compile the application:
+- using make:
 ```
 make build
+```
+- manual:
+```
+g++ -std=c++17 src/main.cpp -o build/main
+```
+
+## Example
+```bash
+build/main.exe 1 100 -file primes.txt -threads 8 -sort desc --hush -columns 5
+```
+
+This command finds all prime numbers between 1 and 100, outputs them to `primes.txt` in descending order using 8 threads, suppresses thread completion messages, and formats the output in 5 columns.
+
+### Output
+```
+97      89      83      79      73
+71      67      61      59      53
+47      43      41      37      31
+29      23      19      17      13
+11      7       5       3       2
 ```
 
 ## Code Structure
@@ -67,11 +87,6 @@ make build
 - `find_primes()`: Finds primes in a given range and records execution time.
 - `is_prime()`: Checks if a number is prime.
 - `print_primes()`: Prints the prime numbers in the specified column format.
-
-## Dependencies
-
-- `C++17` or later
-- `argparse` library: Ensure the `argparse.hpp` file from the `p-ranav/argparse` repository is included in your project.
 
 ## License
 This project is licensed under the MIT License

@@ -12,19 +12,20 @@ Prime Finder is a multi-threaded C++ application that finds all prime numbers wi
 ## Usage
 
 ```
-Usage: prime_finder a b [options]
-Finds all prime numbers in the range [a, b].
+Usage: prime_finder [--help] [--version] [-file] [-threads VAR] [-sort VAR] [--hush] [-columns VAR] a b
 
 Positional arguments:
-  a               Start of the range (must be a positive integer)
-  b               End of the range (must be a positive integer greater than a)
+  a              Start of the range (must be a positive integer)
+  b              End of the range (must be a positive integer greater than a)
 
 Optional arguments:
-  -file FILE      Output primes to FILE instead of the console
-  -threads T      Number of threads to use (default: 4)
-  -sort ORDER     Sort order of the primes: 'asc' for ascending (default), 'desc' for descending
-  --hush          Suppress the output of thread finishing status
-  -columns NUMBER Number of columns for output format (default: 1)
+  -h, --help     shows help message and exits
+  -v, --version  prints version information and exits
+  -file          Output primes to FILE instead of the console
+  -threads       Number of threads to use (default: 4) [nargs=0..1] [default: 4]
+  -sort          Sort order of the primes: 'asc' for ascending (default), 'desc' for descending [nargs=0..1] [default: "asc"]
+  --hush         Suppress the output of thread finishing status
+  -columns       Number of columns for output format (default: 1) [nargs=0..1] [default: 1]
 ```
 
 ### Positional Arguments

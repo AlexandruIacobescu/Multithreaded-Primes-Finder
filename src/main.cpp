@@ -128,22 +128,22 @@ void print_primes(const std::vector<int> &primes, int columns) {
 }
 
 int main(int argc, char *argv[]) {
-    if (argc < 3) {
-        std::cerr
-            << "Usage: prime_finder a b [options]\n"
-            << "Finds all prime numbers in the range [a, b].\n\n"
-            << "Positional arguments:\n"
-            << "  a               Start of the range (must be a positive integer)\n"
-            << "  b               End of the range (must be a positive integer greater than a)\n\n"
-            << "Optional arguments:\n"
-            << "  -file FILE      Output primes to FILE instead of the console\n"
-            << "  -threads T      Number of threads to use (default: 4)\n"
-            << "  -sort ORDER     Sort order of the primes: 'asc' for ascending (default), 'desc' "
-               "for descending\n"
-            << "  --hush          Suppress the output of thread finishing status\n"
-            << "  -columns NUMBER Number of columns for output format (default: 1)\n";
-        return 1;
-    }
+    // if (argc < 3) {
+    //     std::cerr
+    //         << "Usage: prime_finder a b [options]\n"
+    //         << "Finds all prime numbers in the range [a, b].\n\n"
+    //         << "Positional arguments:\n"
+    //         << "  a               Start of the range (must be a positive integer)\n"
+    //         << "  b               End of the range (must be a positive integer greater than a)\n\n"
+    //         << "Optional arguments:\n"
+    //         << "  -file FILE      Output primes to FILE instead of the console\n"
+    //         << "  -threads T      Number of threads to use (default: 4)\n"
+    //         << "  -sort ORDER     Sort order of the primes: 'asc' for ascending (default), 'desc' "
+    //            "for descending\n"
+    //         << "  --hush          Suppress the output of thread finishing status\n"
+    //         << "  -columns NUMBER Number of columns for output format (default: 1)\n";
+    //     return 1;
+    // }
 
     int a, b, threads;
     std::string filename;

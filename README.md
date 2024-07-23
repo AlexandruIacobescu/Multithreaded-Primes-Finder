@@ -49,7 +49,8 @@ make build
 ```
 - manual:
 ```
-g++ -std=c++17 src/main.cpp -o build/main
+mkdir build
+g++ src/main.cpp -o build/main -std=c++17
 ```
 
 ## Example
@@ -77,4 +78,4 @@ This command finds all prime numbers between 1 and 100, outputs them to `primes.
 - `print_primes()`: Prints the prime numbers in the specified column format.
 
 ## License
-This project is licensed under the MIT License
+This project is licensed under the MIT License.

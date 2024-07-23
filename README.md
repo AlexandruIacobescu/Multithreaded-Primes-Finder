@@ -28,19 +28,6 @@ Optional arguments:
   -columns       Number of columns for output format (default: 1) [nargs=0..1] [default: 1]
 ```
 
-### Positional Arguments
-
-- `a`: Start of the range (must be a positive integer)
-- `b`: End of the range (must be a positive integer greater than `a`)
-
-### Optional Arguments
-
-- `-file FILE`: Output primes to FILE instead of the console
-- `-threads T`: Number of threads to use (default: 4)
-- `-sort ORDER`: Sort order of the primes: `asc` for ascending (default), `desc` for descending
-- `--hush`: Suppress the output of thread finishing status
-- `-columns NUMBER`: Number of columns for output format (default: 1)
-
 ## Installation
 ### Prerequisitres
 - `C++17`, or later
